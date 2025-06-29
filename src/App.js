@@ -79,7 +79,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Router>
+      <Router basename="/Digital-Perception">
         <Nav>
           <NavList>
             <NavItem><NavLink to="/">Home</NavLink></NavItem>
