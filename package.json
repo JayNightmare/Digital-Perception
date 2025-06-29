@@ -2,15 +2,18 @@
   "name": "digital-perception",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://jaynightmare.github.io/Digital-Perception",
   "dependencies": {
     "cra-template-pwa": "2.0.0",
     "dotenv": "^17.0.0",
     "firebase": "^11.9.1",
+    "os-browserify": "^0.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^7.6.3",
     "react-scripts": "5.0.1",
-    "styled-components": "^6.1.19"
+    "styled-components": "^6.1.19",
+    "testing-library": "^0.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
