@@ -8,7 +8,6 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import logo from './logo.svg';
 import './App.css';
 
 const GlobalStyle = createGlobalStyle`
