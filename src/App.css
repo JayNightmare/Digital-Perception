@@ -1,3 +1,11 @@
+:root {
+  /* Primary Color: Dark Mode - Black */
+  --primary-color: #000000;
+  /* Secondary Color: Dark Mode - Dark Gray */
+  --secondary-color: #282c34;
+  --text-color: white;
+}
+
 .App {
   text-align: center;
 }
