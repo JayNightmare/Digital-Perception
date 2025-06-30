@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import About from './pages/About';
@@ -70,6 +70,11 @@ function App() {
             } />
           </Routes>
         </PageContainer>
+        {/* Footer */}
+        <footer className="footer">
+          <p>&copy; {new Date().getFullYear()} Digital Perception. All rights reserved.</p>
+          <p>Follow us on <Link to="https://github.com/Augmented-Perception">GitHub</Link> and <Link to="">Twitter</Link>.</p>
+        </footer>
       </Router>
     </>
   );
