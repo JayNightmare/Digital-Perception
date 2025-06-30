@@ -74,15 +74,15 @@ React website for Augmented Perception, an Open-Source Organisation that provide
 
 **Start the development server**
 ```bash
-npm start
+npm run start
 ```
 
 The app will open at [http://localhost:3000](http://localhost:3000).
 
 **Available Scripts**
-- `npm start` - Start development server
-- `npm build` - Build for production
-- `npm test` - Run tests
+- `npm run start` - Start development server
+- `npm run build` - Build for production
+- `npm run test` - Run tests
 - `npm run lint` - Run ESLint
 
 ## Project Structure
@@ -152,6 +152,7 @@ The built files will be in the `build/` directory, ready for deployment to any s
 | `REACT_APP_STORAGE_BUCKET` | Firebase storage bucket | Yes |
 | `REACT_APP_MESSAGING_SENDER_ID` | Firebase messaging sender ID | Yes |
 | `REACT_APP_APP_ID` | Firebase app ID | Yes |
+| `REACT_APP_MEASUREMENT_ID` | Firebase measurement ID | Yes |
 
 ## Contributing
 

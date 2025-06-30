@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/home.css';
 
 function Home() {
@@ -13,9 +14,9 @@ function Home() {
 
       {/* Quick Nav Links */ }
       <div className="quick-nav">
-        <a href="/Digital-Perception/projects" className="quick-link">Projects</a>
-        <a href="/Digital-Perception/about" className="quick-link">About Us</a>
-        <a href="/Digital-Perception/contact" className="quick-link">Contact</a>
+        <Link to="/projects" className="quick-link">Projects</Link>
+        <Link to="/about" className="quick-link">About Us</Link>
+        <Link to="/contact" className="quick-link">Contact</Link>
       </div>
 
       {/* Coming Soon */}
