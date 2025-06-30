@@ -1,8 +1,7 @@
-## 🎸 SDE-3000 EVH Editor - Pull Request
+## 👁️ Digital Perception - Pull Request
 
 ### 📝 Description
 <!-- Provide a brief description of the changes in this PR -->
-
 
 ### 🎯 Type of Change
 <!-- Mark the relevant option with an "x" -->
@@ -16,19 +15,10 @@
 - [ ] 🧪 Tests
 - [ ] 🔒 Security fix
 
-### 🎵 MIDI/Audio Related
-<!-- If this PR affects MIDI functionality, please check all that apply -->
-- [ ] Changes to MIDI communication
-- [ ] Parameter control modifications
-- [ ] SysEx message handling
-- [ ] Memory slot operations
-- [ ] Device connection logic
-- [ ] None - Not MIDI related
-
 ### 🧪 Testing
 <!-- Describe the tests you ran and how to reproduce them -->
 - [ ] Tested locally
-- [ ] Tested with actual SDE-3000 EVH hardware
+- [ ] Tested with actual website deployment
 - [ ] Tested PWA functionality
 - [ ] Tested on mobile devices
 - [ ] Cross-browser testing completed
@@ -36,7 +26,6 @@
 **Test Configuration:**
 - Browser(s): 
 - Device(s): 
-- MIDI Interface: 
 
 ### 📸 Screenshots/Demo
 <!-- If applicable, add screenshots or a demo link -->
@@ -79,7 +68,6 @@ Related to #
 
 ### 🎸 For Reviewers
 - [ ] Code quality and style
-- [ ] MIDI functionality testing
 - [ ] PWA features verification
 - [ ] Mobile responsiveness
 - [ ] Performance impact
