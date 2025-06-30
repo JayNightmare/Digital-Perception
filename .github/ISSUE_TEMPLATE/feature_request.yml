@@ -1,5 +1,5 @@
 name: ✨ Feature Request
-description: Suggest a new feature or enhancement for the SDE-3000 EVH Editor
+description: Suggest a new feature or enhancement for the Digital Perception website
 title: "[FEATURE] "
 labels: ["enhancement", "needs-triage"]
 
@@ -49,7 +49,7 @@ body:
       label: 📂 Feature Category
       description: What category does this feature fall into?
       options:
-        - "MIDI Control & Communication"
+        - "Communication"
         - "User Interface & Experience"
         - "Parameter Management"
         - "Memory Slot Operations"
