@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
+import '../styles/login.css';
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -22,20 +23,24 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div>
-      <h1>Admin Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
-      </form>
+    <div className="login-container">
+      <div className="login-content">
+        <h1>Login</h1>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div>
+            <label>Email:</label>
+            <input type="email" placeholder='johndoe@example.com' onChange={e => setEmail(e.target.value)} required />
+          </div>
+          <div>
+            <label>Password:</label>
+            <input type="password" placeholder="super secret password" onChange={e => setPassword(e.target.value)} required />
+          </div>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+          {error && <div className="login-error">{error}</div>}
+        </form>
+      </div>
     </div>
   );
 }

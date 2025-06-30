@@ -1,6 +1,13 @@
+<div align=center>
+
+<img src="./public/ap-eye-animated.gif">
+
 # Augmented Perception Website
 
-A modern React website for the Augmented Perception organization, featuring project management, admin authentication, and a beautiful UI.
+</div>
+
+
+React website for Augmented Perception, an Open-Source Organisation that provides AI-powered solutions to the AR/VR community. This website is designed to show off the orgs capabilities and provide a platform for users to learn more about the org and its projects.
 
 ## Features
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import About from './pages/About';
@@ -8,57 +7,17 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import './App.css';
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-    background: #f7f8fa;
-    color: #222;
-  }
-`;
-
-const Nav = styled.nav`
-  background: #222;
-  padding: 0.5rem 0;
-`;
-const NavList = styled.ul`
-  display: flex;
-  gap: 1.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0 2rem;
-`;
-const NavItem = styled.li``;
-const NavLink = styled(Link)`
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  &:hover {
-    color: #61dafb;
-  }
-`;
-const LogoutButton = styled.button`
-  background: #ff4d4f;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 0.3rem 0.8rem;
-  cursor: pointer;
-  font-weight: 500;
-  &:hover {
-    background: #d9363e;
-  }
-`;
-const PageContainer = styled.div`
-  max-width: 900px;
-  margin: 2rem auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-  padding: 2rem 2.5rem;
-`;
+import {
+  GlobalStyle,
+  Nav,
+  NavList,
+  NavItem,
+  NavLink,
+  LogoutButton,
+  PageContainer
+} from './styles/AppStyles';
+import './styles/App.css';
+import AnimatedCursor from "react-animated-cursor";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -80,6 +39,16 @@ function App() {
     <>
       <GlobalStyle />
       <Router basename="/Digital-Perception">
+        <div className="cursor__dot">
+          <AnimatedCursor
+            innerSize={15}
+            outerSize={15}
+            color="255, 255 ,255"
+            outerAlpha={0.4}
+            innerScale={0.7}
+            outerScale={5}
+          />
+        </div>
         <Nav>
           <NavList>
             <NavItem><NavLink to="/">Home</NavLink></NavItem>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import '../styles/projects.css';
 
 const ProjectList = styled.ul`
   list-style: none;

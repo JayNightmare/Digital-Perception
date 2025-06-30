@@ -1,0 +1,176 @@
+/* Projects Page Styling */
+.projects-container {
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    min-height: 100vh;
+}
+
+.projects-header {
+    text-align: center;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid #333;
+}
+
+.projects-content {
+    padding: 2rem 2.5rem;
+}
+
+.projects-content h1 {
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+.project-list {
+    list-style: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.project-item {
+    background: var(--secondary-color);
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(97, 218, 251, 0.1);
+}
+
+.project-item.pinned {
+    border-color: #61dafb;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, rgba(97, 218, 251, 0.1) 100%);
+}
+
+.project-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.project-title:hover {
+    color: #61dafb;
+}
+
+.project-description {
+    margin: 0.5rem 0 1rem 0;
+    color: #cccccc;
+    line-height: 1.5;
+}
+
+.admin-controls {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #444;
+}
+
+.admin-controls button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.pin-btn {
+    background-color: #61dafb;
+    color: #000000;
+}
+
+.pin-btn:hover {
+    background-color: #4fa8c5;
+}
+
+.edit-btn {
+    background-color: #ffa500;
+    color: #000000;
+}
+
+.edit-btn:hover {
+    background-color: #e6940a;
+}
+
+.delete-btn {
+    background-color: #ff4d4f;
+    color: #ffffff;
+}
+
+.delete-btn:hover {
+    background-color: #d9363e;
+}
+
+.add-project-form {
+    background-color: var(--secondary-color);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-project-form h2 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.add-project-form div {
+    margin-bottom: 1rem;
+}
+
+.add-project-form label {
+    display: block;
+    color: var(--text-color);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.add-project-form input,
+.add-project-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    color: var(--text-color);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.add-project-form input:focus,
+.add-project-form textarea:focus {
+    outline: none;
+    border-color: #61dafb;
+    box-shadow: 0 0 0 2px rgba(97, 218, 251, 0.2);
+}
+
+.add-project-form button {
+    background-color: #61dafb;
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.add-project-form button:hover {
+    background-color: #4fa8c5;
+}
