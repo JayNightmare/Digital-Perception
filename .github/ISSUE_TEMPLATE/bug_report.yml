@@ -1,5 +1,5 @@
 name: 🐛 Bug Report
-description: Report a bug or issue with the SDE-3000 EVH Editor
+description: Report a bug or issue with the Digital Perception Website
 title: "[BUG] "
 labels: ["bug", "needs-triage"]
 
@@ -85,26 +85,6 @@ body:
       placeholder: e.g., Chrome 120.0.6099.109
     validations:
       required: true
-
-  - type: dropdown
-    id: midi-connection
-    attributes:
-      label: 🎵 MIDI Connection Status
-      description: Is your SDE-3000 EVH connected via MIDI?
-      options:
-        - "Yes, connected and recognized"
-        - "Yes, connected but not recognized"
-        - "No, not connected"
-        - "I don't have the device"
-    validations:
-      required: true
-
-  - type: textarea
-    id: midi-interface
-    attributes:
-      label: 🎛️ MIDI Interface Details
-      description: What MIDI interface or connection method are you using?
-      placeholder: e.g., USB MIDI cable, audio interface with MIDI, etc.
 
   - type: textarea
     id: console-errors
