@@ -142,6 +142,16 @@ npm run build
 
 The built files will be in the `build/` directory, ready for deployment to any static hosting service.
 
+### SPA Routing Fix
+
+This project includes a fix for Single Page Application (SPA) routing issues on GitHub Pages. When users refresh the page on any route other than the root (e.g., `/about`, `/contact`), GitHub Pages would normally show a 404 error because it looks for physical files at those paths.
+
+**Solution implemented:**
+- `public/404.html`: Redirects 404 errors to the main page with the original path preserved
+- `public/index.html`: Contains a script that restores the correct URL from the redirect
+
+This ensures that all routes work correctly when users refresh the page or access URLs directly. The solution is based on the [spa-github-pages](https://github.com/rafgraph/spa-github-pages) approach.
+
 ## Environment Variables
 
 | Variable | Description | Required |
