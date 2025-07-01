@@ -19,7 +19,7 @@ function About() {
           </p>
 
           {/* Link to Mission Statement */}
-          <p>You can find out more about our mission <Link to="">here</Link></p>
+          <p>You can find out more about our mission <Link to="/mission">here</Link></p>
         </div>
 
         <div className="about-card about-team-section">
