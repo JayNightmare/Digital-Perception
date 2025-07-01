@@ -19,7 +19,7 @@ function About() {
           <h2>The Team</h2>
           <p>We are a diverse team of developers, designers, and innovators, each bringing unique skills and perspectives to our projects. Together, we aim to create impactful technology that makes a difference.</p>
           <p align="center"><strong>Want to be a part of the team?</strong></p>
-          <p>Join us on <a href="">GitHub</a> and contribute to our projects. Whether you're a seasoned developer or just starting out, we welcome all who share our passion for technology and innovation.</p>
+          <p>Join us on <a href="https://github.com/Augmented-Perception">GitHub</a> and contribute to our projects. Whether you're a seasoned developer or just starting out, we welcome all who share our passion for technology and innovation.</p>
           <Link to="/hire">For more information, go </Link>
         </div>
       </div>

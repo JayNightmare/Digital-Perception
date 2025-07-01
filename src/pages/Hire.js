@@ -1,7 +1,6 @@
 import React from 'react';
 import '../styles/hire.css';
 import '../styles/hire.css';
-import { Link } from 'react-router-dom';
 
 function Hire() {
   return (
