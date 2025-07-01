@@ -1,6 +1,6 @@
 <div align=center>
 
-<img src="./public/ap-eye-animated.gif">
+<img src="./src/assets/ap-eye-animated.gif" width="100" height="100" alt="Animated Eye Icon">
 
 # Augmented Perception Website
 
