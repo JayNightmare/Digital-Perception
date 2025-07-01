@@ -6,6 +6,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Hire from './pages/Hire';
+import Mission from './pages/Mission';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {
@@ -76,6 +77,7 @@ function App() {
               authChecked ? (user ? <AdminDashboard /> : <Login onLogin={() => window.location.reload()} />) : <div>Loading...</div>
             } />
             <Route path="/hire" element={<Hire />} />
+            <Route path="/mission" element={<Mission />} />
           </Routes>
         </PageContainer>
         {/* Footer */}
