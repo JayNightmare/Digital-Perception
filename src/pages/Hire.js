@@ -31,7 +31,10 @@ function Hire() {
               The easiest way to get involved is to join our Discord server. Here, you can meet the team, ask questions, and help us bug test our projects.
             </p>
             <p>
-              <a href="https://discord.gg/your-discord-link" target="_blank" rel="noopener noreferrer">Join our Discord Server</a> and introduce yourself. We have channels for bug testing, general discussion, and project updates. Your feedback is invaluable to us, and we appreciate any help you can provide in making our projects better.
+              <a href="https://discord.gg/vCNcw5A4NN" target="_blank" rel="noopener noreferrer">Join our Discord Server</a> and introduce yourself. We have channels for bug testing, general discussion, and project updates. Your feedback is invaluable to us, and we appreciate any help you can provide in making our projects better.
+            </p>
+            <p fontStyle={{ fontStyle: 'italic' }}>
+              Currently a work in progress
             </p>
           </div>
 
