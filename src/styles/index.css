@@ -14,10 +14,17 @@ code {
 
 :root {
   /* Primary Color: Dark Mode - Black */
-  --primary-color: #000000;
+  --primary-color: #00000000;
   /* Secondary Color: Dark Mode - Dark Gray */
-  --secondary-color: #282c34;
+  --secondary-color: rgba(0,0,0,0.8);
+  /* Text Color */
   --text-color: white;
+  /* Accent Color */
+  --accent-color: #61dafb;
+  /* Border Color */
+  --border-color: #888888;
+
+  --backdrop-filter: saturate(180%) blur(10px);
 }
 
 .App {

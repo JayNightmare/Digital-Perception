@@ -124,10 +124,10 @@ function Projects({ isAdmin }) {
   const unpinned = repos.filter((r) => !pinnedIds.has(r.id));
 
   return (
-    <div>
+    <div className="projects-page">
       <h1>Projects</h1>
       {isAdmin && <FormButton onClick={() => setShowAdd(true)}>Add Project</FormButton>}
-      <ProjectList>
+      <ProjectList className="projects-container">
         {pinned.map((repo) => (
           <ProjectItem key={repo.id} pinned>
             <span role="img" aria-label="pinned">📌</span> <ProjectTitle href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</ProjectTitle>

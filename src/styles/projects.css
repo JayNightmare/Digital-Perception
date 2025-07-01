@@ -1,4 +1,7 @@
-/* Projects Page Styling */
+.projects-page {
+    padding: 2rem 2.5rem;
+}
+
 .projects-container {
     color: var(--text-color);
     background-color: var(--primary-color);

@@ -1,50 +1,45 @@
-/* About Page Styling */
-.about-container {
-    color: var(--text-color);
-    background-color: var(--primary-color);
-    min-height: 100vh;
+.hire-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
 
-.about-header {
-    text-align: center;
-    color: var(--text-color);
-    background-color: var(--primary-color);
+.hire-content {
     padding: 2rem 2.5rem;
-    border-bottom: 1px solid #333;
-}
-
-.about-content {
-    padding: 2rem 2.5rem;
-    max-width: 800px;
     margin: 0 auto;
 }
 
-.about-content h1 {
+.hire-content h1 {
     color: var(--text-color);
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2.5rem;
 }
 
-.about-content p {
+.hire-content p {
     color: var(--text-color);
     line-height: 1.6;
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
 }
 
-.about-content a {
+.hire-content a {
     color: #61dafb;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.about-content a:hover {
+.hire-content a:hover {
     color: #ffffff;
     text-decoration: underline;
 }
 
-.about-card {
+.apply-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hire-card {
     margin-top: 3rem;
     padding: 2rem;
     /* background-color: var(--secondary-color); */
@@ -55,8 +50,23 @@
     backdrop-filter: saturate(180%) blur(10px);;
 }
 
-.about-card h2 {
+.hire-card h2 {
     color: var(--text-color);
     text-align: center;
     margin-bottom: 1.5rem;
 }
+
+.hire-card p {
+    text-align: justify;
+}
+
+.hire-method {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    margin-top: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.green-easy { color: #61fb82 !important; }
+.yellow-medium { color: #f3fb61 !important; }
+.red-hard { color: #fb6161 !important; }

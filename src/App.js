@@ -5,6 +5,7 @@ import Projects from './pages/Projects';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
+import Hire from './pages/Hire';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {
@@ -18,6 +19,8 @@ import {
 } from './styles/AppStyles';
 import './styles/App.css';
 import AnimatedCursor from "react-animated-cursor";
+import Particles from "./components/particles";
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -46,7 +49,7 @@ function App() {
             color="255, 255 ,255"
             outerAlpha={0.4}
             innerScale={0.7}
-            outerScale={5}
+            outerScale={3}
           />
         </div>
         <Nav>
@@ -60,6 +63,10 @@ function App() {
           </NavList>
         </Nav>
         <PageContainer>
+          <Particles
+            className="particles"
+            quantity={100}
+          />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects isAdmin={!!user} />} />
@@ -68,12 +75,16 @@ function App() {
             <Route path="/admin" element={
               authChecked ? (user ? <AdminDashboard /> : <Login onLogin={() => window.location.reload()} />) : <div>Loading...</div>
             } />
+            <Route path="/hire" element={<Hire />} />
           </Routes>
         </PageContainer>
         {/* Footer */}
         <footer className="footer">
           <p>&copy; {new Date().getFullYear()} Digital Perception. All rights reserved.</p>
           <p>Follow us on <Link to="https://github.com/Augmented-Perception">GitHub</Link> and <Link to="">Twitter</Link>.</p>
+          <nav className="footer-nav">
+            <Link to="/hire">Careers</Link> | <Link to="">Terms</Link> | <Link to="/contact">Contact</Link>
+          </nav>
         </footer>
       </Router>
     </>

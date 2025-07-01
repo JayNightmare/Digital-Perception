@@ -1,12 +1,3 @@
-:root {
-    /* Primary Color: Dark Mode - Black */
-    --primary-color: #000000;
-    /* Secondary Color: Dark Mode - Dark Gray */
-    --secondary-color: #282c34;
-    /* Text Color */
-    --text-color: white;
-}
-
 .home-container {
     color: var(--text-color);
     background-color: var(--primary-color);
