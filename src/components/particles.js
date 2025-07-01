@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import { useMousePosition } from "../utils/mouse";
 
 export default function Particles({
@@ -17,64 +17,7 @@ export default function Particles({
     const canvasSize = useRef({ w: 0, h: 0 });
     const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
-    useEffect(() => {
-        if (canvasRef.current) {
-            context.current = canvasRef.current.getContext("2d");
-        }
-        initCanvas();
-        animate();
-        window.addEventListener("resize", initCanvas);
-
-        return () => {
-            window.removeEventListener("resize", initCanvas);
-        };
-    }, []);
-
-    useEffect(() => {
-        onMouseMove();
-    }, [mousePosition.x, mousePosition.y]);
-
-    useEffect(() => {
-        initCanvas();
-    }, [refresh]);
-
-    const initCanvas = () => {
-        resizeCanvas();
-        drawParticles();
-    };
-
-    const onMouseMove = () => {
-        if (canvasRef.current) {
-            const rect = canvasRef.current.getBoundingClientRect();
-            const { w, h } = canvasSize.current;
-            const x = mousePosition.x - rect.left - w / 2;
-            const y = mousePosition.y - rect.top - h / 2;
-            const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
-            if (inside) {
-                mouse.current.x = x;
-                mouse.current.y = y;
-            }
-        }
-    };
-
-    const resizeCanvas = () => {
-        if (
-            canvasContainerRef.current &&
-            canvasRef.current &&
-            context.current
-        ) {
-            circles.current.length = 0;
-            canvasSize.current.w = canvasContainerRef.current.offsetWidth;
-            canvasSize.current.h = canvasContainerRef.current.offsetHeight;
-            canvasRef.current.width = canvasSize.current.w * dpr;
-            canvasRef.current.height = canvasSize.current.h * dpr;
-            canvasRef.current.style.width = `${canvasSize.current.w}px`;
-            canvasRef.current.style.height = `${canvasSize.current.h}px`;
-            context.current.scale(dpr, dpr);
-        }
-    };
-
-    const circleParams = () => {
+    const circleParams = useCallback(() => {
         const x = Math.floor(Math.random() * canvasSize.current.w);
         const y = Math.floor(Math.random() * canvasSize.current.h);
         const translateX = 0;
@@ -97,9 +40,9 @@ export default function Particles({
             dy,
             magnetism,
         };
-    };
+    }, []);
 
-    const drawCircle = (circle, update = false) => {
+    const drawCircle = useCallback((circle, update = false) => {
         if (context.current) {
             const { x, y, translateX, translateY, size, alpha } = circle;
             context.current.translate(translateX, translateY);
@@ -113,9 +56,9 @@ export default function Particles({
                 circles.current.push(circle);
             }
         }
-    };
+    }, [dpr]);
 
-    const clearContext = () => {
+    const clearContext = useCallback(() => {
         if (context.current) {
             context.current.clearRect(
                 0,
@@ -124,43 +67,73 @@ export default function Particles({
                 canvasSize.current.h
             );
         }
-    };
+    }, []);
 
-    const drawParticles = () => {
+    const drawParticles = useCallback(() => {
         clearContext();
         const particleCount = quantity;
         for (let i = 0; i < particleCount; i++) {
             const circle = circleParams();
             drawCircle(circle);
         }
-    };
+    }, [quantity, circleParams, drawCircle, clearContext]);
 
-    const remapValue = (value, start1, end1, start2, end2) => {
+    const resizeCanvas = useCallback(() => {
+        if (
+            canvasContainerRef.current &&
+            canvasRef.current &&
+            context.current
+        ) {
+            circles.current.length = 0;
+            canvasSize.current.w = canvasContainerRef.current.offsetWidth;
+            canvasSize.current.h = canvasContainerRef.current.offsetHeight;
+            canvasRef.current.width = canvasSize.current.w * dpr;
+            canvasRef.current.height = canvasSize.current.h * dpr;
+            canvasRef.current.style.width = `${canvasSize.current.w}px`;
+            canvasRef.current.style.height = `${canvasSize.current.h}px`;
+            context.current.scale(dpr, dpr);
+        }
+    }, [dpr]);
+
+    const initCanvas = useCallback(() => {
+        resizeCanvas();
+        drawParticles();
+    }, [resizeCanvas, drawParticles]);
+
+    const onMouseMove = useCallback(() => {
+        if (canvasRef.current) {
+            const rect = canvasRef.current.getBoundingClientRect();
+            const { w, h } = canvasSize.current;
+            const x = mousePosition.x - rect.left - w / 2;
+            const y = mousePosition.y - rect.top - h / 2;
+            const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
+            if (inside) {
+                mouse.current.x = x;
+                mouse.current.y = y;
+            }
+        }
+    }, [mousePosition]);
+
+    const remapValue = useCallback((value, start1, end1, start2, end2) => {
         const remapped =
             ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
         return remapped > 0 ? remapped : 0;
-    };
+    }, []);
 
-    const animate = () => {
+    const animate = useCallback(() => {
         clearContext();
         circles.current.forEach((circle, i) => {
-            // Handle the alpha value
             const edge = [
-                circle.x + circle.translateX - circle.size, // distance from left edge
-                canvasSize.current.w -
-                    circle.x -
-                    circle.translateX -
-                    circle.size, // distance from right edge
-                circle.y + circle.translateY - circle.size, // distance from top edge
-                canvasSize.current.h -
-                    circle.y -
-                    circle.translateY -
-                    circle.size, // distance from bottom edge
+                circle.x + circle.translateX - circle.size,
+                canvasSize.current.w - circle.x - circle.translateX - circle.size,
+                circle.y + circle.translateY - circle.size,
+                canvasSize.current.h - circle.y - circle.translateY - circle.size,
             ];
             const closestEdge = edge.reduce((a, b) => Math.min(a, b));
             const remapClosestEdge = parseFloat(
                 remapValue(closestEdge, 0, 20, 0, 1).toFixed(2)
             );
+
             if (remapClosestEdge > 1) {
                 circle.alpha += 0.02;
                 if (circle.alpha > circle.targetAlpha) {
@@ -169,29 +142,23 @@ export default function Particles({
             } else {
                 circle.alpha = circle.targetAlpha * remapClosestEdge;
             }
+
             circle.x += circle.dx;
             circle.y += circle.dy;
             circle.translateX +=
-                (mouse.current.x / (staticity / circle.magnetism) -
-                    circle.translateX) /
-                ease;
+                (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) / ease;
             circle.translateY +=
-                (mouse.current.y / (staticity / circle.magnetism) -
-                    circle.translateY) /
-                ease;
-            // circle gets out of the canvas
+                (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) / ease;
+
             if (
                 circle.x < -circle.size ||
                 circle.x > canvasSize.current.w + circle.size ||
                 circle.y < -circle.size ||
                 circle.y > canvasSize.current.h + circle.size
             ) {
-                // remove the circle from the array
                 circles.current.splice(i, 1);
-                // create a new circle
                 const newCircle = circleParams();
                 drawCircle(newCircle);
-                // update the circle position
             } else {
                 drawCircle(
                     {
@@ -206,8 +173,30 @@ export default function Particles({
                 );
             }
         });
+
         window.requestAnimationFrame(animate);
-    };
+    }, [staticity, ease, clearContext, remapValue, circleParams, drawCircle]);
+
+    useEffect(() => {
+        if (canvasRef.current) {
+            context.current = canvasRef.current.getContext("2d");
+        }
+        initCanvas();
+        animate();
+        window.addEventListener("resize", initCanvas);
+
+        return () => {
+            window.removeEventListener("resize", initCanvas);
+        };
+    }, [initCanvas, animate]);
+
+    useEffect(() => {
+        onMouseMove();
+    }, [mousePosition, onMouseMove]);
+
+    useEffect(() => {
+        initCanvas();
+    }, [refresh, initCanvas]);
 
     return (
         <div className={className} ref={canvasContainerRef} aria-hidden="true">
