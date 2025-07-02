@@ -115,13 +115,35 @@ If you prefer a backend solution, you can create an API endpoint.
 
 ## Current Status
 
-The contact form is currently set up with:
+The contact form is now set up with:
 - ✅ Form validation
 - ✅ Loading states
 - ✅ Error handling
 - ✅ Success feedback
 - ✅ Form reset functionality
-- ⏳ Actual email sending (choose one option above)
+- ✅ EmailJS integration (implemented and ready to use)
+
+### EmailJS Setup Required
+
+To use the contact form, you need to:
+
+1. **Create EmailJS Account:**
+   - Go to [emailjs.com](https://www.emailjs.com/)
+   - Create a free account
+   - Set up an email service (Gmail, Outlook, etc.)
+   - Create an email template with variables: `{{from_name}}`, `{{from_email}}`, `{{message}}`
+   - Get your Service ID, Template ID, and Public Key
+
+2. **Configure Environment Variables:**
+   Create a `.env` file in the project root with:
+   ```
+   REACT_APP_EMAILJS_SERVICE_ID=your-service-id
+   REACT_APP_EMAILJS_TEMPLATE_ID=your-template-id
+   REACT_APP_EMAILJS_PUBLIC_KEY=your-public-key
+   ```
+
+3. **Deploy:**
+   The contact form will automatically send emails to your configured reply email address!
 
 ## Environment Variables
 
