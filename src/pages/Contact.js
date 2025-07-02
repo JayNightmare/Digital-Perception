@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import '../styles/contact.css';
 
 function Contact() {
@@ -10,6 +11,11 @@ function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'your-public-key');
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,38 +30,22 @@ function Contact() {
     setError('');
 
     try {
-      // Option 1: EmailJS (uncomment after setup)
-      // await emailjs.send(
-      //   'YOUR_SERVICE_ID',
-      //   'YOUR_TEMPLATE_ID',
-      //   {
-      //     from_name: formData.name,
-      //     from_email: formData.email,
-      //     message: formData.message,
-      //   },
-      //   'YOUR_PUBLIC_KEY'
-      // );
+      // Send email using EmailJS
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID || 'your-service-id',
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'your-template-id',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        }
+      );
 
-      // Option 2: Your own backend API (uncomment when ready)
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(formData),
-      // });
-      // 
-      // if (!response.ok) {
-      //   throw new Error('Failed to send message');
-      // }
-
-      // For now, just simulate success
-      setTimeout(() => {
-        setSubmitted(true);
-        setLoading(false);
-      }, 1000);
+      setSubmitted(true);
+      setLoading(false);
 
     } catch (err) {
+      console.error('EmailJS Error:', err);
       setError('Failed to send message. Please try again.');
       setLoading(false);
     }
