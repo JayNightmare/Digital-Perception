@@ -42,3 +42,38 @@
     margin-top: 50px;
     padding: 20px;
 }
+
+.visitor-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.visitor-counter h1 {
+    color: var(--accent-color);
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(97, 218, 251, 0.3);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(97, 218, 251, 0.6), 0 0 30px rgba(97, 218, 251, 0.4);
+    }
+}
+
+@media (max-width: 768px) {
+    .visitor-counter h1 {
+        font-size: 2rem;
+    }
+}

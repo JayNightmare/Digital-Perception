@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import VisitorCounter from '../components/VisitorCounter';
 import '../styles/home.css';
 
 function Home() {
@@ -18,6 +19,9 @@ function Home() {
         <Link to="/about" className="quick-link">About Us</Link>
         <Link to="/contact" className="quick-link">Contact</Link>
       </div>
+
+      {/* Visitor Counter */}
+      <VisitorCounter />
 
       {/* Coming Soon */}
       <div className="coming-soon">
