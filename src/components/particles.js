@@ -42,21 +42,24 @@ export default function Particles({
         };
     }, []);
 
-    const drawCircle = useCallback((circle, update = false) => {
-        if (context.current) {
-            const { x, y, translateX, translateY, size, alpha } = circle;
-            context.current.translate(translateX, translateY);
-            context.current.beginPath();
-            context.current.arc(x, y, size, 0, 2 * Math.PI);
-            context.current.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-            context.current.fill();
-            context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const drawCircle = useCallback(
+        (circle, update = false) => {
+            if (context.current) {
+                const { x, y, translateX, translateY, size, alpha } = circle;
+                context.current.translate(translateX, translateY);
+                context.current.beginPath();
+                context.current.arc(x, y, size, 0, 2 * Math.PI);
+                context.current.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                context.current.fill();
+                context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-            if (!update) {
-                circles.current.push(circle);
+                if (!update) {
+                    circles.current.push(circle);
+                }
             }
-        }
-    }, [dpr]);
+        },
+        [dpr]
+    );
 
     const clearContext = useCallback(() => {
         if (context.current) {
@@ -125,9 +128,15 @@ export default function Particles({
         circles.current.forEach((circle, i) => {
             const edge = [
                 circle.x + circle.translateX - circle.size,
-                canvasSize.current.w - circle.x - circle.translateX - circle.size,
+                canvasSize.current.w -
+                    circle.x -
+                    circle.translateX -
+                    circle.size,
                 circle.y + circle.translateY - circle.size,
-                canvasSize.current.h - circle.y - circle.translateY - circle.size,
+                canvasSize.current.h -
+                    circle.y -
+                    circle.translateY -
+                    circle.size,
             ];
             const closestEdge = edge.reduce((a, b) => Math.min(a, b));
             const remapClosestEdge = parseFloat(
@@ -146,9 +155,13 @@ export default function Particles({
             circle.x += circle.dx;
             circle.y += circle.dy;
             circle.translateX +=
-                (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) / ease;
+                (mouse.current.x / (staticity / circle.magnetism) -
+                    circle.translateX) /
+                ease;
             circle.translateY +=
-                (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) / ease;
+                (mouse.current.y / (staticity / circle.magnetism) -
+                    circle.translateY) /
+                ease;
 
             if (
                 circle.x < -circle.size ||

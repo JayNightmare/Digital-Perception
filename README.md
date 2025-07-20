@@ -12,19 +12,25 @@ React website for Augmented Perception, an Open-Source Organisation that provide
 ## Features
 
 - **Homepage**: Welcome page introducing the organization
-- **Projects Page**: Displays all repositories from the Augmented Perception GitHub organization
+- **Projects Page**: Displays projects from Firestore database with GitHub integration
 - **About Page**: Information about the organization and team
 - **Contact Page**: Contact form for reaching out
-- **Admin Dashboard**: Protected admin area with project management capabilities
+- **Admin Dashboard**: Protected admin area with comprehensive project management
 - **Authentication**: Secure admin login using Firebase Authentication
-- **Project Management**: Admins can pin, edit, delete, and add projects
+- **Project Management**: Full CRUD operations - create, read, update, delete projects
+- **GitHub Integration**: Sync projects with GitHub repositories automatically
+- **Pin Projects**: Highlight important projects at the top
 - **Modern UI**: Clean, responsive design using styled-components
+- **Error Handling**: Comprehensive error boundaries and user feedback
+- **Real-time Updates**: Live project data from Firestore
 
 ## Tech Stack
 
 - **Frontend**: React 18 with React Router for navigation
+- **Database**: Firebase Firestore for project data storage
 - **Styling**: styled-components for modern CSS-in-JS
 - **Authentication**: Firebase Authentication (Email/Password)
+- **API Integration**: GitHub API for repository synchronization
 - **Build Tool**: Create React App with PWA template
 - **Package Manager**: npm
 
@@ -32,7 +38,8 @@ React website for Augmented Perception, an Open-Source Organisation that provide
 
 - Node.js (version 16 or higher)
 - npm or yarn
-- Firebase project (for authentication)
+- Firebase project (for authentication and Firestore)
+- GitHub organization access (for repository sync)
 
 ## Installation
 
@@ -51,6 +58,7 @@ React website for Augmented Perception, an Open-Source Organisation that provide
    - Go to [Firebase Console](https://console.firebase.google.com/)
    - Create a new project
    - Enable Authentication with Email/Password sign-in method
+   - Enable Firestore Database (start in test mode for development)
    - Add a web app to your project
    - Copy the Firebase configuration
 
@@ -63,9 +71,13 @@ React website for Augmented Perception, an Open-Source Organisation that provide
    REACT_APP_STORAGE_BUCKET=your_project.appspot.com
    REACT_APP_MESSAGING_SENDER_ID=your_sender_id
    REACT_APP_APP_ID=your_app_id
+   REACT_APP_MEASUREMENT_ID=your_measurement_id
    ```
 
-5. **Create admin user**
+5. **Set up Firestore (Optional)**
+   For detailed Firestore setup instructions including security rules, see [FIRESTORE_SETUP.md](./FIRESTORE_SETUP.md)
+
+6. **Create admin user**
    - In Firebase Console, go to Authentication > Users
    - Add a new user with email and password
    - This user will have admin access to the dashboard
@@ -90,32 +102,64 @@ The app will open at [http://localhost:3000](http://localhost:3000).
 ```
 src/
 ├── pages/           # Page components
-│   ├── Home.js      # Homepage
-│   ├── Projects.js  # Projects listing with admin controls
-│   ├── About.js     # About page
-│   ├── Contact.js   # Contact form
-│   └── Login.js     # Admin login
-├── App.js           # Main app component with routing
-├── firebase.js      # Firebase configuration
-└── index.js         # App entry point
+├── src/
+│   ├── components/
+│   │   ├── particles.js          # Animated background particles
+│   │   ├── AdminProjectDashboard.js # Comprehensive admin interface
+│   │   └── ErrorBoundary.js      # Error handling component
+│   ├── pages/
+│   │   ├── Home.js     # Homepage
+│   │   ├── Projects.js # Projects listing with Firestore integration
+│   │   ├── About.js    # About page
+│   │   ├── Contact.js  # Contact form
+│   │   └── Login.js    # Admin login
+│   ├── utils/
+│   │   ├── projectService.js # Firestore CRUD operations
+│   │   ├── testFirestore.js  # Testing utilities
+│   │   └── mouse.js          # Mouse tracking utilities
+│   ├── App.js          # Main app component with routing
+│   ├── firebase.js     # Firebase configuration
+│   └── index.js        # App entry point
+├── FIRESTORE_SETUP.md  # Detailed Firestore setup guide
+└── README.md           # This file
 ```
 
 ## Admin Features
 
 ### Authentication
 - Secure login using Firebase Authentication
-- Protected admin routes
+- Protected admin routes with error boundaries
 - Automatic session management
 
-### Project Management
-- **Pin Projects**: Pin important projects to appear at the top
-- **Edit Projects**: Modify project name, description, and URL
-- **Delete Projects**: Remove projects from the listing
-- **Add Projects**: Create new projects (stored locally for demo)
+### Project Management Dashboard
+- **Comprehensive Statistics**: View total, pinned, GitHub, and custom project counts
+- **GitHub Synchronization**: Import and sync repositories from GitHub organization
+- **Real-time Updates**: Live project data from Firestore database
+- **Bulk Operations**: Manage multiple projects efficiently
+
+### CRUD Operations
+- **Create**: Add new custom projects with full validation
+- **Read**: View all projects with filtering and sorting
+- **Update**: Edit project details, descriptions, and URLs
+- **Delete**: Remove projects with confirmation dialogs
+- **Pin/Unpin**: Highlight important projects
+
+### GitHub Integration
+- **Auto-Import**: Import all repositories from GitHub organization
+- **Data Sync**: Update existing GitHub projects with latest repository data
+- **Repository Tracking**: Distinguish between GitHub repos and custom projects
+- **Metadata Storage**: Store GitHub-specific data (stars, language, etc.)
+
+### Error Handling & UX
+- **Error Boundaries**: Graceful handling of component crashes
+- **Loading States**: User feedback during async operations
+- **Success/Error Messages**: Clear feedback for all actions
+- **Form Validation**: Prevent invalid data submission
 
 ### Access Control
 - Admin controls are only visible to authenticated users
 - Non-admin users can view projects but cannot modify them
+- Protected routes with automatic redirection
 
 ## Deployment
 

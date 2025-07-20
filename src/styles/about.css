@@ -51,8 +51,8 @@
     background-color: var(--secondary-color);
     border-radius: 8px;
     border: 1px solid var(--border-color);
-    -webkit-backdrop-filter: saturate(180%) blur(10px);;
-    backdrop-filter: saturate(180%) blur(10px);;
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    backdrop-filter: saturate(180%) blur(10px);
 }
 
 .about-card h2 {

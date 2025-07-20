@@ -46,8 +46,8 @@
     background-color: var(--secondary-color);
     border-radius: 8px;
     border: 1px solid var(--border-color);
-    -webkit-backdrop-filter: saturate(180%) blur(10px);;
-    backdrop-filter: saturate(180%) blur(10px);;
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    backdrop-filter: saturate(180%) blur(10px);
 }
 
 .hire-card h2 {
@@ -67,6 +67,12 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-.green-easy { color: #61fb82 !important; }
-.yellow-medium { color: #f3fb61 !important; }
-.red-hard { color: #fb6161 !important; }
+.green-easy {
+    color: #61fb82 !important;
+}
+.yellow-medium {
+    color: #f3fb61 !important;
+}
+.red-hard {
+    color: #fb6161 !important;
+}
