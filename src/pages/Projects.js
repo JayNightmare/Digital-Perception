@@ -67,19 +67,19 @@ const ModalBackdrop = styled.div`
 `;
 
 const AddEditForm = styled.div`
-    background: #1a1a1a;
-    color: #fff;
+    // background: #1a1a1a;
+    color: #1a1a1a;
     border-radius: 8px;
-    padding: 2rem;
-    margin: 0;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    padding: 2rem 0;
+    // margin-top: 10px;
+    // box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: 500px;
     max-width: 90vw;
-    border: 1px solid #333;
+    // border: 1px solid #333;
 
     h3 {
         color: #fff;
@@ -111,12 +111,11 @@ const FormInput = styled.input`
 `;
 const FormButton = styled.button`
     background: #61dafb;
+    border: 1px solid #2222226b;
     color: #222;
-    border: none;
     border-radius: 4px;
     padding: 0.75rem 1.5rem;
     font-weight: 500;
-    margin-right: 0.5rem;
     margin-top: 0.5rem;
     cursor: pointer;
     font-size: 1rem;
@@ -544,7 +543,10 @@ function Projects({ isAdmin }) {
             {/* Add Project Form */}
             {showAdd && (
                 <ModalBackdrop onClick={handleCancelAdd}>
-                    <AddEditForm onClick={(e) => e.stopPropagation()}>
+                    <AddEditForm
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ background: "#1a1a1a", padding: "2rem" }}
+                    >
                         <h3>Add Project</h3>
                         <FormInput
                             value={form.name}
