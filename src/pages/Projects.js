@@ -5,6 +5,7 @@ import {
     testFirestoreConnection,
 } from "../utils/projectService";
 import FirestoreDebug from "../components/FirestoreDebug";
+import ProductionDiagnostic from "../components/ProductionDiagnostic";
 import "../styles/projects.css";
 
 const ProjectList = styled.ul`
@@ -335,6 +336,11 @@ function Projects({ isAdmin }) {
             {/* Debug panel for development */}
             {process.env.NODE_ENV === "development" && error && (
                 <FirestoreDebug />
+            )}
+
+            {/* Production diagnostic tool */}
+            {process.env.NODE_ENV === "production" && error && (
+                <ProductionDiagnostic />
             )}
 
             {error && (
