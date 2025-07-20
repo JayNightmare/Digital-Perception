@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { projectService } from "../utils/projectService";
+import {
+    projectService,
+    testFirestoreConnection,
+} from "../utils/projectService";
+import FirestoreDebug from "../components/FirestoreDebug";
 import "../styles/projects.css";
 
 const ProjectList = styled.ul`
@@ -46,31 +50,85 @@ const AdminButton = styled.button`
         color: #222;
     }
 `;
+
+const ModalBackdrop = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 const AddEditForm = styled.div`
-    background: #f7f8fa;
+    background: #1a1a1a;
+    color: #fff;
     border-radius: 8px;
-    padding: 1rem;
-    margin: 1rem 0;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    padding: 2rem;
+    margin: 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    max-width: 90vw;
+    border: 1px solid #333;
+
+    h3 {
+        color: #fff;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
 `;
 const FormInput = styled.input`
     margin: 0.3rem 0.7rem 0.3rem 0;
-    padding: 0.3rem 0.7rem;
+    padding: 0.75rem;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid #444;
+    background: #2a2a2a;
+    color: #fff;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:focus {
+        outline: none;
+        border-color: #61dafb;
+        box-shadow: 0 0 0 2px rgba(97, 218, 251, 0.2);
+    }
+
+    &::placeholder {
+        color: #999;
+    }
 `;
 const FormButton = styled.button`
     background: #61dafb;
     color: #222;
     border: none;
     border-radius: 4px;
-    padding: 0.3rem 0.9rem;
+    padding: 0.75rem 1.5rem;
     font-weight: 500;
     margin-right: 0.5rem;
+    margin-top: 0.5rem;
     cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
     &:hover {
-        background: #222;
-        color: #fff;
+        background: #4fa8c5;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
     }
 `;
 
@@ -87,12 +145,41 @@ function Projects({ isAdmin }) {
     const loadProjects = async () => {
         try {
             setLoading(true);
+            setError(null);
+
+            // Test Firestore connection first
+            console.log("🔍 Testing Firestore connection...");
+            const connectionTest = await testFirestoreConnection();
+            if (!connectionTest) {
+                throw new Error("Firestore connection test failed");
+            }
+
+            console.log("📂 Loading projects...");
             const firestoreProjects = await projectService.getProjects();
             setProjects(firestoreProjects);
-            setError(null);
+            console.log(
+                `✅ Loaded ${firestoreProjects.length} projects successfully`
+            );
         } catch (err) {
-            console.error("Error loading projects:", err);
+            console.error("❌ Error loading projects:", err);
             setError(err.message);
+
+            // Provide helpful error messages based on error type
+            if (err.message.includes("permission-denied")) {
+                setError(
+                    "Permission denied. Please check Firestore security rules or authenticate as an admin."
+                );
+            } else if (err.message.includes("unavailable")) {
+                setError(
+                    "Firestore service is unavailable. Please check your internet connection and try again."
+                );
+            } else if (err.message.includes("failed-precondition")) {
+                setError(
+                    "Firestore database not properly set up. Please check your Firebase console configuration."
+                );
+            } else {
+                setError(`Failed to load projects: ${err.message}`);
+            }
         } finally {
             setLoading(false);
         }
@@ -245,6 +332,12 @@ function Projects({ isAdmin }) {
     return (
         <div className="projects-page">
             <h1>Projects</h1>
+
+            {/* Debug panel for development */}
+            {process.env.NODE_ENV === "development" && error && (
+                <FirestoreDebug />
+            )}
+
             {error && (
                 <div
                     style={{
@@ -450,32 +543,39 @@ function Projects({ isAdmin }) {
 
             {/* Add Project Form */}
             {showAdd && (
-                <AddEditForm>
-                    <h3>Add Project</h3>
-                    <FormInput
-                        value={form.name}
-                        onChange={(e) =>
-                            setForm({ ...form, name: e.target.value })
-                        }
-                        placeholder="Name"
-                    />
-                    <FormInput
-                        value={form.description}
-                        onChange={(e) =>
-                            setForm({ ...form, description: e.target.value })
-                        }
-                        placeholder="Description"
-                    />
-                    <FormInput
-                        value={form.url}
-                        onChange={(e) =>
-                            setForm({ ...form, url: e.target.value })
-                        }
-                        placeholder="URL"
-                    />
-                    <FormButton onClick={handleAdd}>Add</FormButton>
-                    <FormButton onClick={handleCancelAdd}>Cancel</FormButton>
-                </AddEditForm>
+                <ModalBackdrop onClick={handleCancelAdd}>
+                    <AddEditForm onClick={(e) => e.stopPropagation()}>
+                        <h3>Add Project</h3>
+                        <FormInput
+                            value={form.name}
+                            onChange={(e) =>
+                                setForm({ ...form, name: e.target.value })
+                            }
+                            placeholder="Name"
+                        />
+                        <FormInput
+                            value={form.description}
+                            onChange={(e) =>
+                                setForm({
+                                    ...form,
+                                    description: e.target.value,
+                                })
+                            }
+                            placeholder="Description"
+                        />
+                        <FormInput
+                            value={form.url}
+                            onChange={(e) =>
+                                setForm({ ...form, url: e.target.value })
+                            }
+                            placeholder="URL"
+                        />
+                        <FormButton onClick={handleAdd}>Add</FormButton>
+                        <FormButton onClick={handleCancelAdd}>
+                            Cancel
+                        </FormButton>
+                    </AddEditForm>
+                </ModalBackdrop>
             )}
 
             {projects.length === 0 && !loading && (

@@ -1,0 +1,38 @@
+// firestore.rules - Copy this to Firebase Console → Firestore Database → Rules
+
+rules_version = '2';
+service cloud.firestore {
+    match /databases/{database}/documents {
+        match /projects/{projectId} {
+            // Allow public read access
+            allow read: if true;
+
+            // Only authenticated users can write
+            allow create, update, delete: if request.auth != null;
+
+            // Validate project data structure
+            allow create, update: if request.auth != null 
+                && validateProject(request.resource.data);
+        }
+
+        function validateProject(project) {
+            return project.keys().hasAll(['name', 'description', 'url', 'pinned', 'isGitHubRepo', 'createdAt', 'updatedAt']) &&
+            project.name is string &&
+            project.description is string &&
+            project.url is string &&
+            project.pinned is bool &&
+            project.isGitHubRepo is bool &&
+            project.createdAt is timestamp &&
+            project.updatedAt is timestamp;
+        }
+    }
+}
+
+/*
+INSTRUCTIONS:
+1. Copy the rules above
+2. Go to Firebase Console → Firestore Database → Rules
+3. Paste and click "Publish"
+4. Test your application
+5. Once working, switch to production rules (uncomment the production section)
+*/

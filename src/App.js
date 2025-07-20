@@ -52,6 +52,12 @@ function App() {
                         outerAlpha={0.4}
                         innerScale={0.7}
                         outerScale={3}
+                        innerStyle={{
+                            zIndex: 999999,
+                        }}
+                        outerStyle={{
+                            zIndex: 999999,
+                        }}
                     />
                 </div>
                 <Nav>

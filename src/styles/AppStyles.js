@@ -45,6 +45,21 @@ export const GlobalStyle = createGlobalStyle`
                 z-index: -1;
                 overflow: hidden;
         }
+
+        /* Add this to your global CSS file or App.css */
+        [data-cursor="true"], 
+        .animated-cursor,
+        .react-animated-cursor {
+            z-index: 999999 !important;
+            pointer-events: none !important;
+            position: fixed !important;
+        }
+
+        /* Target the inner and outer cursor elements specifically */
+        [data-cursor="true"] > div,
+        .animated-cursor > div {
+            z-index: 999999 !important;
+        }
 `;
 
 export const Nav = styled.nav`
