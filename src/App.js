@@ -19,6 +19,13 @@ import {
     NavLink,
     LogoutButton,
     PageContainer,
+    HamburgerButton,
+    MobileSidebar,
+    MobileOverlay,
+    MobileNavList,
+    MobileNavItem,
+    MobileNavLink,
+    MobileLogoutButton,
 } from "./styles/AppStyles";
 import "./styles/App.css";
 import AnimatedCursor from "react-animated-cursor";
@@ -27,6 +34,7 @@ import Particles from "./components/particles";
 function App() {
     const [user, setUser] = useState(null);
     const [authChecked, setAuthChecked] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -36,8 +44,31 @@ function App() {
         return () => unsubscribe();
     }, []);
 
+    // Handle body scroll locking for mobile menu
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.classList.add("mobile-menu-open");
+        } else {
+            document.body.classList.remove("mobile-menu-open");
+        }
+
+        // Cleanup on component unmount
+        return () => {
+            document.body.classList.remove("mobile-menu-open");
+        };
+    }, [isMobileMenuOpen]);
+
     const handleLogout = () => {
         signOut(auth);
+        setIsMobileMenuOpen(false); // Close mobile menu after logout
+    };
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
     };
 
     return (
@@ -60,7 +91,8 @@ function App() {
                         }}
                     />
                 </div>
-                <Nav>
+                <Nav className="nav">
+                    {/* Desktop Navigation */}
                     <NavList>
                         <NavItem>
                             <NavLink to="/">Home</NavLink>
@@ -85,7 +117,73 @@ function App() {
                             </NavItem>
                         )}
                     </NavList>
+
+                    {/* Mobile Hamburger Button */}
+                    <HamburgerButton
+                        onClick={toggleMobileMenu}
+                        $isOpen={isMobileMenuOpen}
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </HamburgerButton>
                 </Nav>
+
+                {/* Mobile Sidebar Menu */}
+                {isMobileMenuOpen && (
+                    <MobileOverlay onClick={closeMobileMenu} />
+                )}
+                <MobileSidebar
+                    $isOpen={isMobileMenuOpen}
+                    className="mobile-sidebar"
+                >
+                    <MobileNavList>
+                        <MobileNavItem>
+                            <MobileNavLink to="/" onClick={closeMobileMenu}>
+                                Home
+                            </MobileNavLink>
+                        </MobileNavItem>
+                        <MobileNavItem>
+                            <MobileNavLink
+                                to="/projects"
+                                onClick={closeMobileMenu}
+                            >
+                                Projects
+                            </MobileNavLink>
+                        </MobileNavItem>
+                        <MobileNavItem>
+                            <MobileNavLink
+                                to="/about"
+                                onClick={closeMobileMenu}
+                            >
+                                About
+                            </MobileNavLink>
+                        </MobileNavItem>
+                        <MobileNavItem>
+                            <MobileNavLink
+                                to="/contact"
+                                onClick={closeMobileMenu}
+                            >
+                                Contact
+                            </MobileNavLink>
+                        </MobileNavItem>
+                        <MobileNavItem>
+                            <MobileNavLink
+                                to="/admin"
+                                onClick={closeMobileMenu}
+                            >
+                                Admin
+                            </MobileNavLink>
+                        </MobileNavItem>
+                        {user && (
+                            <MobileNavItem>
+                                <MobileLogoutButton onClick={handleLogout}>
+                                    Logout
+                                </MobileLogoutButton>
+                            </MobileNavItem>
+                        )}
+                    </MobileNavList>
+                </MobileSidebar>
                 <PageContainer>
                     <Particles className="particles" quantity={100} />
                     <Routes>

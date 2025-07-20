@@ -1,0 +1,21 @@
+/* Mobile Navigation Styles */
+@media (max-width: 550px) {
+    /* Hide desktop nav on mobile */
+    .nav {
+        position: relative;
+    }
+    
+    /* Prevent body scroll when mobile menu is open */
+    body.mobile-menu-open {
+        overflow: hidden;
+    }
+    
+    /* Ensure mobile menu appears above particles and other content */
+    .mobile-sidebar {
+        z-index: 1000;
+    }
+    
+    .mobile-overlay {
+        z-index: 999;
+    }
+}
