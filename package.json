@@ -9,9 +9,9 @@
     "dotenv": "^17.0.0",
     "firebase": "^11.9.1",
     "os-browserify": "^0.3.0",
-    "react": "^18.0.0",
+    "react": "^19.1.0",
     "react-animated-cursor": "^2.11.2",
-    "react-dom": "^18.0.0",
+    "react-dom": "^19.1.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.19",
     "testing-library": "^0.0.2"
