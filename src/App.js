@@ -74,7 +74,7 @@ function App() {
     return (
         <>
             <GlobalStyle />
-            <Router basename="/Digital-Perception">
+            <Router>
                 <div className="cursor__dot">
                     <AnimatedCursor
                         innerSize={15}
