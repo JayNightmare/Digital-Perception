@@ -13,7 +13,7 @@
     "react-animated-cursor": "^2.11.2",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1",
-    "styled-components": "^6.1.19",
+    "styled-components": "^6.3.8",
     "testing-library": "^0.0.2"
   },
   "scripts": {
